@@ -40,7 +40,20 @@ var K2VK = map[int]int{
 }
 
 func (e *Event) Execute() error {
+    for _, key := range e.KeyStrokes {
+        if e.isModifier(key) {
+            e.toggleMod(key)
+        } else {
+            e.tap(key)
+        }
+    }
 
+    return e.ReleaseMods()
+}
+
+func (e *Event) ReleaseMods() error {
+    initVKB(e)
+    return nil
 }
 
 func initVKB(e *Event) (err error) {
