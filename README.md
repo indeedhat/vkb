@@ -15,14 +15,19 @@ I cannot test this on all versions so i will be basing my testing on the followi
 - windows 10
 
 ## Current State
-I have only just finished converting the package over and have not yet had chance to test it on any platform
+I have completed most of the functionality i intend for this package but there are still some things to do.\
+It is still also awaiting testing
 
 ## In progress
-I am currently working on a parser based on keyboard layouts to convert pure text into key presses. 
-Very little is done on this as of yet
+I am currently in the process of testing
+
+## Gotchas
+The keys sub package that provides platform independent constants for key codes has some issues on mac.
+- As far as i can find out there are only virtual key codes for F1-20, as such F20-24 all use the code for F20
+- There are no virtual key codes for media keys, volume up, volume down and mute work but all the other media controls 
+will product an End key stroke on osx
 
 ## Todo
-- parser for text to key press
 - add uk qwerty layout
-- provide key constant aliases for each platform where possible to allow for better implementation portability
 - actually build and test the package on platforms
+- possibly add dvorak layout, i might not do this as i don't use that layout
