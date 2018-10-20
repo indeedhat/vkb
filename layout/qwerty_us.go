@@ -63,8 +63,8 @@ func QwertyUs() Layout {
         ShiftKeys: map[rune]int{
             '>': keys.PERIOD,
             '<': keys.COMMA,
-            '_': keys.EQUALS,
-            '+': keys.DASH,
+            '_': keys.DASH,
+            '+': keys.EQUALS,
             ':': keys.SEMICOLON,
             '?': keys.SLASH,
             '~': keys.BACKTICK,
