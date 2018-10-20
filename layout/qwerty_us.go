@@ -57,6 +57,7 @@ func QwertyUs() Layout {
 
             ' ':  keys.SPACE,
             '\t': keys.TAB,
+            '\n': keys.ENTER,
         },
 
         ShiftKeys: map[rune]int{
