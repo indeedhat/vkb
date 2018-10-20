@@ -8,7 +8,7 @@ func QwertyUs() Layout {
             '.':  keys.PERIOD,
             ',':  keys.COMMA,
             '=':  keys.EQUALS,
-            '–':  keys.DASH,
+            '-':  keys.DASH,
             ';':  keys.SEMICOLON,
             '/':  keys.SLASH,
             '`':  keys.BACKTICK,
