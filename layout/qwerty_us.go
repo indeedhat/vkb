@@ -4,7 +4,7 @@ import "github.com/indeedhat/vkb/keys"
 
 func QwertyUs() Layout {
     return Layout{
-        Keys: map[byte]int{
+        Keys: map[rune]int{
             '.':  keys.PERIOD,
             ',':  keys.COMMA,
             '=':  keys.EQUALS,
@@ -59,7 +59,7 @@ func QwertyUs() Layout {
             '\t': keys.TAB,
         },
 
-        ShiftKeys: map[byte]int{
+        ShiftKeys: map[rune]int{
             '>': keys.PERIOD,
             '<': keys.COMMA,
             '_': keys.EQUALS,
