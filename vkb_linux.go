@@ -13,7 +13,6 @@ type uinput_user_dev C.struct_uinput_user_dev
 type timeval C.struct_timeval
 type input_event C.struct_input_event
 
-var fd *os.File
 
 const (
     EV_KEY               = C.EV_KEY
@@ -26,8 +25,10 @@ const (
 
 )
 
-// execute the keystrokes
-func (e *Event) Execute() (err error){
+
+// apply the keystrokes
+// make the virtual keyboard start typing
+func (e *VirtKB) Type() (err error){
     for _, key := range e.KeyStrokes {
        if e.isModifier(key) {
            if e.Modifiers[key] {
@@ -56,7 +57,7 @@ func (e *Event) Execute() (err error){
 }
 
 // release any modifier keys that are still being pressed
-func (e *Event) ReleaseMods() error {
+func (e *VirtKB) ReleaseMods() (err error) {
     for key, state := range e.Modifiers {
        if state {
            if err := e.release(key); nil != err {
@@ -69,8 +70,9 @@ func (e *Event) ReleaseMods() error {
     return
 }
 
+
 // press down a key
-func (e *Event) press(key int) error {
+func (e *VirtKB) press(key int) error {
     ev := input_event{
         _type: EV_KEY,
         code:  c.__u16(key),
@@ -80,8 +82,9 @@ func (e *Event) press(key int) error {
     return binary.Write(e.Fd, binary.LittleEndian, &ev)
 }
 
+
 // release a key
-func (e *Event) release(key int) error {
+func (e *VirtKB) release(key int) error {
     ev := input_event{
         _type: EV_KEY,
         code:  c.__u16(key),
@@ -91,7 +94,9 @@ func (e *Event) release(key int) error {
     return binary.Write(e.Fd, binary.LittleEndian, &ev)
 }
 
-func (e *Event) sync() error {
+
+// send a sync event
+func (e *VirtKB) sync() error {
     ev := input_event{
         _type: EV_SYN,
         code:  0,
@@ -101,8 +106,9 @@ func (e *Event) sync() error {
     return binary.Write(e.Fd, binary.LittleEndian, &ev)
 }
 
+
 // tap a key
-func (e *Event) tap(key int) error {
+func (e *VirtKB) tap(key int) error {
     if err := e.press(key); nil != err {
         return err
     }
@@ -110,7 +116,18 @@ func (e *Event) tap(key int) error {
     return e.release(key)
 }
 
-func initVKB(e *Event) (err error) {
+
+// close any open connection
+func (e *VirtKB) Close() {
+    syscall.Syscall(syscall.SYS_IOCTL, e.Fd.Fd(), UI_DEV_DESTROY, 0)
+    e.Fd.Close()
+}
+
+
+// initialize the keyboard for the platform
+// this is pretty much all just copied from the keybd_event repo
+// i haven't yet bothered to go through and understand it
+func initVKB(e *VirtKB) (err error) {
     // no need to re init
     if nil != e.Fd {
         return
@@ -165,7 +182,9 @@ func initVKB(e *Event) (err error) {
     return
 }
 
-func registerKeyBits(e *Event) (ec error) {
+
+// not really sure what this is for but its required
+func registerKeyBits(e *VirtKB) (ec error) {
     for i := 0; i < 256; i++ {
         if _, _, ec = syscall.Syscall(syscall.SYS_IOCTL, e.Fd.Fd(), UI_SET_KEYBIT, uintptr(i)); ec != 0 {
             return
@@ -175,11 +194,6 @@ func registerKeyBits(e *Event) (ec error) {
     return
 }
 
-// TODO: find a nice way of calling this before close
-func closeDevice(e *Event) {
-    syscall.Syscall(syscall.SYS_IOCTL, e.Fd.Fd(), UI_DEV_DESTROY, 0)
-    e.Fd.Close()
-}
 
 // find and return the proper path for the uinput file descriptor
 func uinputPath() (string, error) {

@@ -18,6 +18,7 @@ package vkb
 */
 import "C"
 
+
 const (
     AShift    = C.kCGEventFlagMaskAlphaShift
     VK_SHIFT  = C.kCGEventFlagMaskShift
@@ -30,6 +31,7 @@ const (
     Coalesced = C.kCGEventFlagMaskNonCoalesced
 )
 
+
 var K2VK = map[int]int{
     K_Control:      VK_CTRL,
     K_RightShift:   VK_SHIFT,
@@ -39,7 +41,9 @@ var K2VK = map[int]int{
     VK_ALT:         VK_ALT,
 }
 
-func (e *Event) Execute() error {
+// apply the keystrokes
+// make the virtual keyboard start typing
+func (e *VirtKB) Type() (err error) {
     for _, key := range e.KeyStrokes {
         if e.isModifier(key) {
             e.toggleMod(key)
@@ -51,12 +55,22 @@ func (e *Event) Execute() error {
     return e.ReleaseMods()
 }
 
-func (e *Event) ReleaseMods() error {
+
+// release any modifier keys that are still being pressed
+func (e *VirtKB) ReleaseMods() error {
     initVKB(e)
     return nil
 }
 
-func initVKB(e *Event) (err error) {
+
+// close any open connection
+func (e *VirtKB) Close() {
+   // this does nothing on mac it is only here to keep the api consistent
+}
+
+
+// initialize the keyboard for the platform
+func initVKB(e *VirtKB) (err error) {
     e.Modifiers = map[int]bool {
         K_Control:      false,
         K_RightShift:   false,
@@ -68,11 +82,15 @@ func initVKB(e *Event) (err error) {
     return
 }
 
-func (e *Event) toggleMod(key) {
+
+// set the modifier state by key code
+func (e *VirtKB) toggleMod(key) {
     e.Modifiers[key] = !e.Modifiers[key]
 }
 
-func (e *Event) applyMods(event C.CGEventRef) {
+
+// apply any active modifiers to the keystroke event
+func (e *VirtKB) applyMods(event C.CGEventRef) {
     for mod, on := range e.Modifiers {
         if on {
             C.AddActionKey(K2VK[mod], event)
@@ -80,8 +98,9 @@ func (e *Event) applyMods(event C.CGEventRef) {
     }
 }
 
+
 // tap a key
-func (e *Event) tap(key int) {
+func (e *VirtKB) tap(key int) {
     event := C.Create(C.int(key))
     e.applyMods(event)
 
