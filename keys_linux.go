@@ -1,6 +1,11 @@
 package vkb
 
 const (
+
+)
+
+const (
+    // mods
     K_LEFTCTRL   = 29
     K_RIGHTCTRL  = 97
     K_CTRL       = 29
@@ -10,9 +15,8 @@ const (
     K_LEFTALT    = 56
     K_RIGHTALT   = 100
     K_ALT        = 56
-)
 
-const (
+    // keys
     K_RESERVED   = 0
     K_ESC        = 1
     K_1          = 2
@@ -93,7 +97,6 @@ const (
     K_KP3        = 81
     K_KP0        = 82
     K_KPDOT      = 83
-
     K_ZENKAKUHANKAKU   = 85
     K_102ND            = 86
     K_F11              = 87
@@ -128,7 +131,6 @@ const (
     K_KPPLUSMINUS      = 118
     K_PAUSE            = 119
     K_SCALE            = 120 /* AL Compiz Scale (Expose) */
-
     K_KPCOMMA   = 121
     K_HANGEUL   = 122
     K_HANGUEL   = VK_HANGEUL
@@ -137,7 +139,6 @@ const (
     K_LEFTMETA  = 125
     K_RIGHTMETA = 126
     K_COMPOSE   = 127
-
     K_STOP           = 128 /* AC Stop */
     K_AGAIN          = 129
     K_PROPS          = 130 /* AC Properties */
@@ -195,7 +196,6 @@ const (
     K_KPRIGHTPAREN   = 180
     K_NEW            = 181 /* AC New */
     K_REDO           = 182 /* AC Redo/Repeat */
-
     K_F13 = 183
     K_F14 = 184
     K_F15 = 185
@@ -208,7 +208,6 @@ const (
     K_F22 = 192
     K_F23 = 193
     K_F24 = 194
-
     K_PLAYCD         = 200
     K_PAUSECD        = 201
     K_PROG3          = 202
@@ -236,27 +235,21 @@ const (
     K_BRIGHTNESSDOWN = 224
     K_BRIGHTNESSUP   = 225
     K_MEDIA          = 226
-
     K_SWITCHVIDEOMODE = 227 /* Cycle between available video
 	  outputs (Monitor/LCD/TV-out/etc) */
     K_KBDILLUMTOGGLE = 228
     K_KBDILLUMDOWN   = 229
     K_KBDILLUMUP     = 230
-
     K_SEND        = 231 /* AC Send */
     K_REPLY       = 232 /* AC Reply */
     K_FORWARDMAIL = 233 /* AC Forward Msg */
     K_SAVE        = 234 /* AC Save */
     K_DOCUMENTS   = 235
-
     K_BATTERY = 236
-
     K_BLUETOOTH = 237
     K_WLAN      = 238
     K_UWB       = 239
-
     K_UNKNOWN = 240
-
     K_VIDEO_NEXT       = 241 /* drive next video source */
     K_VIDEO_PREV       = 242 /* drive previous video source */
     K_BRIGHTNESS_CYCLE = 243 /* brightness up, after max is min */
@@ -265,10 +258,8 @@ const (
 	ely on ambient */
     K_BRIGHTNESS_ZERO = VK_BRIGHTNESS_AUTO
     K_DISPLAY_OFF     = 245 /* display device to off state */
-
     K_WWAN   = 246 /* Wireless WAN (LTE, UMTS, GSM, etc.) */
     K_WIMAX  = VK_WWAN
     K_RFKILL = 247 /* Key that controls all radios */
-
     K_MICMUTE = 248 /* Mute / unmute the microphone */
 )

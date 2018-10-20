@@ -1,6 +1,10 @@
 package vkb
 
 const (
+
+)
+const (
+    // mods
     K_SHIFT        = 0x10
     K_CTRL         = 0x11
     K_ALT          = 0x12
@@ -8,8 +12,8 @@ const (
     K_RSHIFT       = 0xA1
     K_LCONTROL     = 0xA2
     K_RCONTROL     = 0xA3
-)
-const (
+
+    // keys
     K_LBUTTON             = 0x01
     K_RBUTTON             = 0x02
     K_CANCEL              = 0x03
