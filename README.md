@@ -28,6 +28,8 @@ The keys sub package that provides platform independent constants for key codes 
 will product an End key stroke on osx
 
 ## Todo
+- add special characters to parser so i can get things like the pound symbol on us layout
 - add uk qwerty layout
+- possibly add wait statements so keys can be pressed in specific timings
 - actually build and test the package on platforms
 - possibly add dvorak layout, i might not do this as i don't use that layout

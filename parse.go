@@ -1,6 +1,7 @@
 package vkb
 
 import (
+    "errors"
     "github.com/indeedhat/vkb/layout"
     "github.com/indeedhat/vkb/keys"
 )
@@ -38,4 +39,23 @@ func (e *VirtKB) ParseString(layout layout.Layout, text string, ignoreMissing bo
     }
 
     return
+}
+
+
+// run the parser with the layout already assigned to the keyboard
+// returns error if a layout is not set
+func (e *VirtKB) ParseWithAssignedLayout(text string, ignoreMissing bool) (err error) {
+    if nil == e.Layout {
+        return errors.New("no layout assigned to vkb")
+    }
+
+    return e.ParseString(*e.Layout, text, ignoreMissing)
+}
+
+
+// assign a layout to the keyboard
+func (e *VirtKB) AssignLayout(layout *layout.Layout) (*VirtKB) {
+    e.Layout = layout
+
+    return e
 }

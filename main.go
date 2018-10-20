@@ -2,11 +2,13 @@ package vkb
 
 import (
     "os"
+    "github.com/indeedhat/vkb/layout"
 )
 
 type VirtKB struct {
     KeyStrokes []int
     Modifiers  map[int]bool
+    Layout    *layout.Layout
 
     // this file descriptor is only used for linux but i want to keep it per event anyway
     Fd *os.File
